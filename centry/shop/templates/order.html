@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load cart %}
+{% block title %} BARRACUDA SHOP | COMMANDE {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1 class="font-weight-light">COMMANDE</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>S.ID</th>
+                    <th>NOM</th>
+                    <th>Image</th>
+                    <th>PRIX</th>
+                    <th>QUANTITE</th>
+                    <th>TOTAL</th>
+                    <th>DATE</th>
+                    <th>STATU</th>
+                </tr>
+            </thead>
+            <tbody>
+            	{% for order in orders %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><img height="80px" width="100px" src="{{ order.product.image.url }}" alt=""></td>
+                    <td>{{ order.product }}</td>
+                    <td>{{ order.price|currency }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <th>{{ order.quantity|multipy:order.price|currency }}</th>
+                    <th>{{ order.date }}</th>
+                    {% if order.completed %}
+                    <th><span class="badge badge-success">Complet</span></th>
+                    {% else %}
+                    <th><span class="badge badge-warning">en attente</span></th>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <hr>
+
+
+</div>
+{% endblock %}

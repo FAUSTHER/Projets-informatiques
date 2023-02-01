@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %} BARRACUDA SHOP | Signup {% endblock%}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="font-weight-light">INSCRIPTION|BARRACUDA SHOP</h1>
+            <hr>
+            <form action="/signup" method="POST">
+                {% if error %}
+                <small style="color:red"> {{ error.field_error }} </small>
+                <small style="color:rgb(67, 96, 224)"> {{ error.success }} </small>
+                {% endif %}
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">NOM</label>
+                    <input value="{{ userData.name }}" name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="nom">
+                    {% if error %}
+                    <small style="color:red"> {{ error.name_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="email">ADRESSE MAIL</label>
+                    <input value="{{ userData.email }}" name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="mail">
+                    {% if error %}
+                    <small style="color:red"> {{ error.emailExits_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="phone">NUMERO DE TELEPHONE</label>
+                    <input value="{{ userData.phone }}" name="phone" type="number" class="form-control" id="phone" placeholder="num">
+                    {% if error %}
+                    <small style="color:red"> {{ error.phoneNumber_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="password">MOT DE PASSE</label>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="mot de pass">
+                    {% if error %}
+                    <small style="color:red">{{ error.notMatch_error }}
+                        {{ error.minPass_error }} </small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirmer le mot de passe</label>
+                    <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="mot de pass">
+                    {% if error %}
+                    <small style="color:red"> {{ error.notMatch_error }}
+                        {{ error.minPass_error }} </small>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">INSCRIPTION</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
